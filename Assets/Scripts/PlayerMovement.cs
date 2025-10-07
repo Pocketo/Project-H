@@ -7,14 +7,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float speed = 5f;
     [SerializeField] private float sprintMultiplier = 2f;
     [SerializeField] private float rotationSpeed = 10f;
+    [SerializeField] private float airControl = 0.5f; // Control del movimiento en el aire (0-1)
 
     [Header("Salto y Gravedad")]
     [SerializeField] private float jumpHeight = 2f;
     [SerializeField] private float gravity = -9.81f;
     [SerializeField] private int maxJumps = 2;
-    [SerializeField] private float coyoteTimeDuration = 0.2f; // Duración del coyote time
+    [SerializeField] private float coyoteTimeDuration = 0.2f;
+    [SerializeField] private float fallThreshold = -0.5f; // Velocidad mínima para activar animación de caída
     private int jumpsRemaining;
-    private float coyoteTimeCounter; // Contador actual del coyote time
+    private float coyoteTimeCounter;
+    private bool isFalling = false;
     
     [Header("Dash")]
     [SerializeField] private float dashDistance = 5f;
@@ -26,7 +29,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask groundMask;
     [SerializeField] private float groundDistance = 0.4f;
     private bool isGrounded;
-    private bool wasGrounded; // Para detectar cuando acaba de dejar el suelo
+    private bool wasGrounded;
+
+    [Header("Combate")]
+    [SerializeField] private float attackCooldown = 0.5f; // Tiempo entre ataques
+    [SerializeField] private float comboResetTime = 1.5f; // Tiempo para resetear el combo
+    private int currentAttack = 0; // 0 = sin atacar, 1-3 = ataques del combo
+    private float lastAttackTime = 0f;
+    private float comboTimer = 0f;
+    private bool isAttacking = false;
 
     private Animator animator;
     
@@ -38,7 +49,6 @@ public class PlayerController : MonoBehaviour
     private CharacterController controller;
     private Vector3 velocity;
     private Vector2 moveInput;
-    //private bool isSprinting;
 
     void Start()
     {
@@ -52,11 +62,12 @@ public class PlayerController : MonoBehaviour
     {
         moveInput = context.ReadValue<Vector2>();
 
-        if (context.performed && moveInput != Vector2.zero)
+        // Solo activar animación de Walk si está en el suelo Y no está en dash
+        if (context.performed && moveInput != Vector2.zero && isGrounded && !isDashing)
         {
             animator.SetBool("Walk", true);
         }
-        else if (context.canceled)
+        else if (context.canceled || !isGrounded || isDashing)
         {
             animator.SetBool("Walk", false);
         }
@@ -64,40 +75,29 @@ public class PlayerController : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext context)
     {
-        // Puede saltar si tiene saltos restantes O si está en coyote time
         if (context.performed && (jumpsRemaining > 0 || coyoteTimeCounter > 0f))
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
             
-            // Si usamos coyote time (primer salto desde el aire), resetear contador
             if (coyoteTimeCounter > 0f)
             {
                 coyoteTimeCounter = 0f;
-                jumpsRemaining = maxJumps - 1; // Gastamos el primer salto
+                jumpsRemaining = maxJumps - 1;
             }
             else
             {
                 jumpsRemaining--;
             }
             
-            animator.SetTrigger("Jump"); // Opcional: añadir trigger de salto
+            animator.SetTrigger("Jump");
+            isFalling = false;
         }
     }
-
-   // public void Sprint(InputAction.CallbackContext context)
-    //{
-        //if (context.performed && isSprinting)
-            //isSprinting = true;
-       
-        //else if (context.canceled)
-            //isSprinting = false;
-   //}
     
     public void Dash(InputAction.CallbackContext context)
     {
-        if (context.performed && !isDashing && cooldownTimer <= 0f)
+        if (context.performed && !isDashing && cooldownTimer <= 0f && !isAttacking)
         {
-            // Dirección del dash basada en el input actual
             if (moveInput.sqrMagnitude > 0.1f)
             {
                 Vector3 inputDirection = new Vector3(moveInput.x, 0, moveInput.y);
@@ -114,17 +114,57 @@ public class PlayerController : MonoBehaviour
             dashTimer = dashDuration;
             cooldownTimer = dashCooldown;
             
-            animator.SetTrigger("Dash"); // Opcional: añadir trigger de dash
+            animator.SetTrigger("Dash");
         }
     }
     
     public void Attack(InputAction.CallbackContext context)
     {
-        if (context.performed && !isDashing)
+        if (context.performed && !isDashing && !isAttacking)
         {
-            // Usar SetTrigger en lugar de SetBool para animaciones de una sola vez
-            animator.SetTrigger("Attack");
-        }   
+            // Verificar si el cooldown ha pasado
+            if (Time.time >= lastAttackTime + attackCooldown)
+            {
+                // Resetear combo si pasó mucho tiempo
+                if (Time.time >= comboTimer + comboResetTime)
+                {
+                    currentAttack = 0;
+                }
+
+                // Incrementar el ataque del combo
+                currentAttack++;
+                if (currentAttack > 3)
+                {
+                    currentAttack = 1; // Volver al primer ataque
+                }
+
+                // Activar la animación correspondiente
+                switch (currentAttack)
+                {
+                    case 1:
+                        animator.SetTrigger("Attack1");
+                        break;
+                    case 2:
+                        animator.SetTrigger("Attack2");
+                        break;
+                    case 3:
+                        animator.SetTrigger("Attack3");
+                        break;
+                }
+
+                lastAttackTime = Time.time;
+                comboTimer = Time.time;
+                isAttacking = true;
+
+                // Llamar a la corrutina para resetear isAttacking después de un tiempo
+                Invoke(nameof(ResetAttack), attackCooldown);
+            }
+        }
+    }
+
+    private void ResetAttack()
+    {
+        isAttacking = false;
     }
 
     void Update()
@@ -137,46 +177,62 @@ public class PlayerController : MonoBehaviour
         {
             coyoteTimeCounter = coyoteTimeDuration;
             jumpsRemaining = maxJumps;
+            
+            // Resetear animación de caída al tocar el suelo
+            if (isFalling)
+            {
+                animator.SetBool("IsFalling", false);
+                isFalling = false;
+            }
         }
         else
         {
-            // Decrementar coyote time solo cuando NO está en el suelo
             coyoteTimeCounter -= Time.deltaTime;
+            
+            // Activar animación de caída si está cayendo rápido (y no está en dash)
+            if (velocity.y < fallThreshold && !isFalling && !isGrounded && !isDashing)
+            {
+                animator.SetBool("IsFalling", true);
+                isFalling = true;
+            }
         }
 
-        // Movimiento
-        if (!isDashing)
+        // Movimiento normal (bloqueado durante ataque O dash)
+        if (!isDashing && !isAttacking)
         {
-           float currentSpeed = speed;
+            // Velocidad diferente según si está en el suelo o en el aire
+            float currentSpeed = isGrounded ? speed : speed * airControl;
             Vector3 move = new Vector3(moveInput.x, 0, moveInput.y);
             move = Camera.main.transform.TransformDirection(move);
             move.y = 0f;
             
-            // Rotar el personaje hacia la dirección del movimiento
+            // Rotar el personaje hacia la dirección del movimiento (más lento en el aire)
             if (move.sqrMagnitude > 0.1f)
             {
                 Quaternion targetRotation = Quaternion.LookRotation(move);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+                float currentRotationSpeed = isGrounded ? rotationSpeed : rotationSpeed * airControl;
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, currentRotationSpeed * Time.deltaTime);
             }
             
-           controller.Move(move * currentSpeed * Time.deltaTime);
+            controller.Move(move * currentSpeed * Time.deltaTime);
         }
 
         // Gravedad
         if (isGrounded && velocity.y < 0)
         {
-            velocity.y = -2f; // Pequeña fuerza hacia abajo para mantener grounded
+            velocity.y = -2f;
         }
 
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
         
-        // Dash
+        // Dash (tiene prioridad sobre el movimiento normal)
         if (cooldownTimer > 0f)
             cooldownTimer -= Time.deltaTime;
 
         if (isDashing)
         {
+            // Durante el dash, solo se mueve en la dirección del dash
             controller.Move(dashDirection * (dashDistance / dashDuration) * Time.deltaTime);
 
             dashTimer -= Time.deltaTime;
@@ -192,10 +248,23 @@ public class PlayerController : MonoBehaviour
     
     private void UpdateAnimator()
     {
-        // Parámetros opcionales que puedes añadir a tu Animator
         animator.SetBool("IsGrounded", isGrounded);
         animator.SetFloat("VerticalVelocity", velocity.y);
-      //  animator.SetBool("IsSprinting", isSprinting && moveInput.sqrMagnitude > 0.1f);
+        animator.SetInteger("AttackCount", currentAttack);
+        
+        // Asegurar que Walk solo esté activo en el suelo y sin dash/ataque
+        if (!isGrounded || isDashing || isAttacking)
+        {
+            animator.SetBool("Walk", false);
+        }
+        else if (isGrounded && moveInput.sqrMagnitude > 0.1f && !isAttacking && !isDashing)
+        {
+            animator.SetBool("Walk", true);
+        }
+        else if (moveInput.sqrMagnitude <= 0.1f)
+        {
+            animator.SetBool("Walk", false);
+        }
     }
     
     private void OnDrawGizmos()
