@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
     private CharacterController controller;
     private Vector3 velocity;
     private Vector2 moveInput;
-    private bool isSprinting;
+    //private bool isSprinting;
 
     void Start()
     {
@@ -84,13 +84,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void Sprint(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-            isSprinting = true;
-        else if (context.canceled)
-            isSprinting = false;
-    }
+   // public void Sprint(InputAction.CallbackContext context)
+    //{
+        //if (context.performed && isSprinting)
+            //isSprinting = true;
+       
+        //else if (context.canceled)
+            //isSprinting = false;
+   //}
     
     public void Dash(InputAction.CallbackContext context)
     {
@@ -146,7 +147,7 @@ public class PlayerController : MonoBehaviour
         // Movimiento
         if (!isDashing)
         {
-            float currentSpeed = isSprinting ? speed * sprintMultiplier : speed;
+           float currentSpeed = speed;
             Vector3 move = new Vector3(moveInput.x, 0, moveInput.y);
             move = Camera.main.transform.TransformDirection(move);
             move.y = 0f;
@@ -158,7 +159,7 @@ public class PlayerController : MonoBehaviour
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
             }
             
-            controller.Move(move * currentSpeed * Time.deltaTime);
+           controller.Move(move * currentSpeed * Time.deltaTime);
         }
 
         // Gravedad
@@ -194,7 +195,7 @@ public class PlayerController : MonoBehaviour
         // Parámetros opcionales que puedes añadir a tu Animator
         animator.SetBool("IsGrounded", isGrounded);
         animator.SetFloat("VerticalVelocity", velocity.y);
-        animator.SetBool("IsSprinting", isSprinting && moveInput.sqrMagnitude > 0.1f);
+      //  animator.SetBool("IsSprinting", isSprinting && moveInput.sqrMagnitude > 0.1f);
     }
     
     private void OnDrawGizmos()

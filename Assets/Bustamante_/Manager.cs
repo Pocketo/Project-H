@@ -9,9 +9,7 @@ public class Manager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Instantiate(enemy, PosAle(),enemy.transform.rotation);
-        
-    
+        Spawn(3);
     }
 
     public Vector3 PosAle()
@@ -20,6 +18,15 @@ public class Manager : MonoBehaviour
         float Zpos = Random.Range(-borde, borde);
         Vector3 posAle = new Vector3(Xpos, 2, Zpos);
         return posAle;
+    }
+
+    private void Spawn(int cantidad)
+    {
+        for (int i = 0; i < cantidad; i++)
+        {
+            Instantiate(enemy, PosAle(),enemy.transform.rotation);
+        }
+            
     }
 
 
