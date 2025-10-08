@@ -34,10 +34,16 @@ public class PlayerController : MonoBehaviour
     [Header("Combate")]
     [SerializeField] private float attackCooldown = 0.5f; // Tiempo entre ataques
     [SerializeField] private float comboResetTime = 1.5f; // Tiempo para resetear el combo
+    [SerializeField] private bool canCancelAttack = false; // ¿Permitir cancelar ataques?
+    [SerializeField] private float attackCancelWindow = 0.6f; // A partir de qué % se puede cancelar (0-1)
+    [SerializeField] private float inputBufferTime = 0.3f; // Tiempo que se guarda el input (MUY IMPORTANTE)
     private int currentAttack = 0; // 0 = sin atacar, 1-3 = ataques del combo
     private float lastAttackTime = 0f;
     private float comboTimer = 0f;
     private bool isAttacking = false;
+    private bool canCombo = false; // Puede encadenar el siguiente ataque
+    private bool attackBuffered = false; // Input guardado
+    private float attackBufferTimer = 0f; // Temporizador del buffer
 
     private Animator animator;
     
@@ -120,46 +126,79 @@ public class PlayerController : MonoBehaviour
     
     public void Attack(InputAction.CallbackContext context)
     {
-        if (context.performed && !isDashing && !isAttacking)
+        if (context.performed && !isDashing)
         {
-            // Verificar si el cooldown ha pasado
-            if (Time.time >= lastAttackTime + attackCooldown)
+            // Sistema de cancelación de ataques
+            if (canCancelAttack && isAttacking)
             {
-                // Resetear combo si pasó mucho tiempo
-                if (Time.time >= comboTimer + comboResetTime)
+                // Puede cancelar si está en la ventana correcta
+                AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+                if (stateInfo.normalizedTime >= attackCancelWindow)
                 {
-                    currentAttack = 0;
+                    PerformAttack();
                 }
-
-                // Incrementar el ataque del combo
-                currentAttack++;
-                if (currentAttack > 3)
+            }
+            // Sistema normal: esperar a que termine el ataque
+            else if (!isAttacking || canCombo)
+            {
+                // Verificar cooldown
+                if (Time.time >= lastAttackTime + attackCooldown)
                 {
-                    currentAttack = 1; // Volver al primer ataque
+                    PerformAttack();
                 }
-
-                // Activar la animación correspondiente
-                switch (currentAttack)
-                {
-                    case 1:
-                        animator.SetTrigger("Attack1");
-                        break;
-                    case 2:
-                        animator.SetTrigger("Attack2");
-                        break;
-                    case 3:
-                        animator.SetTrigger("Attack3");
-                        break;
-                }
-
-                lastAttackTime = Time.time;
-                comboTimer = Time.time;
-                isAttacking = true;
-
-                // Llamar a la corrutina para resetear isAttacking después de un tiempo
-                Invoke(nameof(ResetAttack), attackCooldown);
             }
         }
+    }
+
+    private void PerformAttack()
+    {
+        // Resetear combo si pasó mucho tiempo
+        if (Time.time >= comboTimer + comboResetTime)
+        {
+            currentAttack = 0;
+        }
+
+        // Incrementar el ataque del combo
+        currentAttack++;
+        if (currentAttack > 3)
+        {
+            currentAttack = 1; // Volver al primer ataque
+        }
+
+        // Activar la animación correspondiente
+        switch (currentAttack)
+        {
+            case 1:
+                animator.SetTrigger("Attack1");
+                break;
+            case 2:
+                animator.SetTrigger("Attack2");
+                break;
+            case 3:
+                animator.SetTrigger("Attack3");
+                break;
+        }
+
+        lastAttackTime = Time.time;
+        comboTimer = Time.time;
+        isAttacking = true;
+        canCombo = false;
+
+        // Resetear el estado de ataque después del cooldown
+        CancelInvoke(nameof(ResetAttack));
+        Invoke(nameof(ResetAttack), attackCooldown);
+    }
+
+    // Este método se puede llamar desde Animation Events
+    public void EnableComboWindow()
+    {
+        canCombo = true;
+    }
+
+    // Este método se puede llamar desde Animation Events
+    public void DisableComboWindow()
+    {
+        canCombo = false;
     }
 
     private void ResetAttack()
