@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyHealth : MonoBehaviour
 {
@@ -6,10 +7,12 @@ public class EnemyHealth : MonoBehaviour
     
     private int maxHealth;
     private Animator ani;
+    
     void Start()
     {
         maxHealth = health;
         ani = GetComponent<Animator>();
+        
     }
 
     public void TakeDamage(int damage)
@@ -22,6 +25,7 @@ public class EnemyHealth : MonoBehaviour
         {
             ani.SetTrigger("Death");
             Destroy(gameObject, 3.0f);
+            
         }
     }
 

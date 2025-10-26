@@ -55,6 +55,9 @@ public class PlayerController : MonoBehaviour
     private CharacterController controller;
     private Vector3 velocity;
     private Vector2 moveInput;
+    
+    private Vector3 externalForce = Vector3.zero;
+
 
     void Start()
     {
@@ -62,6 +65,11 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         jumpsRemaining = maxJumps;
         coyoteTimeCounter = 0f;
+    }
+    
+    public void ApplyExternalForce(Vector3 force)
+    {
+        externalForce = force;
     }
 
     public void Move(InputAction.CallbackContext context)
@@ -260,6 +268,12 @@ public class PlayerController : MonoBehaviour
         if (isGrounded && velocity.y < 0)
         {
             velocity.y = -2f;
+        }
+        
+        if (externalForce.magnitude > 0.1f)
+        {
+            velocity.y = externalForce.y;
+            externalForce = Vector3.Lerp(externalForce, Vector3.zero, Time.deltaTime * 5f);
         }
 
         velocity.y += gravity * Time.deltaTime;

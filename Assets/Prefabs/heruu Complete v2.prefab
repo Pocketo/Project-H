@@ -83,6 +83,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: heruu Complete v2
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c2a6b7745c1dd464caa3fef614d5542b, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 5200030637257659968, guid: c2a6b7745c1dd464caa3fef614d5542b, type: 3}
@@ -104,6 +108,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c2a6b7745c1dd464caa3fef614d5542b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5014151931540215306}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c2a6b7745c1dd464caa3fef614d5542b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6036605551722777121}
   m_SourcePrefab: {fileID: 100100000, guid: c2a6b7745c1dd464caa3fef614d5542b, type: 3}
 --- !u!4 &1202539764306044679 stripped
 Transform:
@@ -290,3 +297,20 @@ MonoBehaviour:
   canCancelAttack: 1
   attackCancelWindow: 0.6
   inputBufferTime: 0.5
+--- !u!114 &6036605551722777121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2016371455378210237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df6c18e0741a61a4bb92d86c5ac74057, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
+  totalLives: 3
+  currentLives: 0
+  maxHealthPerLife: 100
+  currentHealth: 0
+  invulnerabilityTime: 2
