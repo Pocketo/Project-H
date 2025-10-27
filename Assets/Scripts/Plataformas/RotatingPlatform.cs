@@ -10,10 +10,13 @@ public class RotatingPlatform : PlatformBase
     [Header("Detección de Jugador")]
     [SerializeField] private LayerMask playerLayer;
     [SerializeField] private bool movePlayerWithPlatform = true;
+    [SerializeField] private Vector3 detectionSize = new Vector3(5f, 0.5f, 5f);
+    [SerializeField] private Vector3 detectionOffset = Vector3.up * 0.5f;
     
     private Vector3 lastPosition;
     private Quaternion lastRotation;
     private Transform playerOnPlatform;
+    private bool hasPlayerOnTop;
     
     protected override void Start()
     {
@@ -25,6 +28,12 @@ public class RotatingPlatform : PlatformBase
     private void FixedUpdate()
     {
         if (!isActive) return;
+        
+        // Detectar jugador en cada frame
+        if (movePlayerWithPlatform)
+        {
+            CheckPlayerOnTop();
+        }
         
         float angle = rotationSpeed * Time.fixedDeltaTime;
         
@@ -60,34 +69,33 @@ public class RotatingPlatform : PlatformBase
         lastRotation = transform.rotation;
     }
     
-    private void OnCollisionEnter(Collision collision)
+    private void CheckPlayerOnTop()
     {
-        if (movePlayerWithPlatform && IsPlayer(collision.gameObject) && IsPlayerOnTop(collision))
+        Vector3 checkPosition = transform.position + detectionOffset;
+        Collider[] hits = Physics.OverlapBox(checkPosition, detectionSize / 2f, transform.rotation, playerLayer);
+        
+        if (hits.Length > 0)
         {
-            playerOnPlatform = collision.transform;
+            // Encontró al jugador
+            if (playerOnPlatform == null)
+            {
+                playerOnPlatform = hits[0].transform;
+            }
+            hasPlayerOnTop = true;
         }
-    }
-    
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.transform == playerOnPlatform)
+        else
         {
+            // No hay jugador
             playerOnPlatform = null;
+            hasPlayerOnTop = false;
         }
     }
     
-    private bool IsPlayer(GameObject obj)
+    private void OnDrawGizmos()
     {
-        return ((1 << obj.layer) & playerLayer) != 0;
-    }
-    
-    private bool IsPlayerOnTop(Collision collision)
-    {
-        foreach (ContactPoint contact in collision.contacts)
-        {
-            if (contact.normal.y < 0.5f)
-                return false;
-        }
-        return true;
+        // Dibujar área de detección del jugador
+        Gizmos.color = hasPlayerOnTop ? Color.green : Color.yellow;
+        Vector3 checkPosition = transform.position + detectionOffset;
+        Gizmos.DrawWireCube(checkPosition, detectionSize);
     }
 }

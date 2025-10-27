@@ -16,6 +16,8 @@ public class MovingPlatform : PlatformBase
     [Header("Detección de Jugador")]
     [SerializeField] private LayerMask playerLayer;
     [SerializeField] private bool movePlayerWithPlatform = true;
+    [SerializeField] private Vector3 detectionSize = new Vector3(1f, 0.5f, 1f);
+    [SerializeField] private Vector3 detectionOffset = Vector3.up * 0.5f;
     
     private int currentWaypointIndex = 0;
     private float journeyLength;
@@ -27,6 +29,7 @@ public class MovingPlatform : PlatformBase
     // Variables para mover al jugador
     private Vector3 lastPosition;
     private Transform playerOnPlatform;
+    private bool hasPlayerOnTop;
     
     protected override void Start()
     {
@@ -58,6 +61,12 @@ public class MovingPlatform : PlatformBase
     {
         if (!isActive || waypoints.Length < 2) return;
         
+        // Detectar jugador en cada frame
+        if (movePlayerWithPlatform)
+        {
+            CheckPlayerOnTop();
+        }
+        
         if (isWaiting)
         {
             waitTimer -= Time.fixedDeltaTime;
@@ -66,6 +75,19 @@ public class MovingPlatform : PlatformBase
                 isWaiting = false;
                 MoveToNextWaypoint();
             }
+            
+            // Mover al jugador incluso mientras espera
+            if (playerOnPlatform != null)
+            {
+                Vector3 platformMovement = transform.position - lastPosition;
+                CharacterController cc = playerOnPlatform.GetComponent<CharacterController>();
+                if (cc != null)
+                {
+                    cc.Move(platformMovement);
+                }
+            }
+            
+            lastPosition = transform.position;
             return;
         }
         
@@ -83,6 +105,28 @@ public class MovingPlatform : PlatformBase
         }
         
         lastPosition = transform.position;
+    }
+    
+    private void CheckPlayerOnTop()
+    {
+        Vector3 checkPosition = transform.position + detectionOffset;
+        Collider[] hits = Physics.OverlapBox(checkPosition, detectionSize / 2f, transform.rotation, playerLayer);
+        
+        if (hits.Length > 0)
+        {
+            // Encontró al jugador
+            if (playerOnPlatform == null)
+            {
+                playerOnPlatform = hits[0].transform;
+            }
+            hasPlayerOnTop = true;
+        }
+        else
+        {
+            // No hay jugador
+            playerOnPlatform = null;
+            hasPlayerOnTop = false;
+        }
     }
     
     private void MovePlatform()
@@ -159,38 +203,10 @@ public class MovingPlatform : PlatformBase
                 Gizmos.DrawLine(worldPos, basePos + waypoints[0]);
             }
         }
-    }
-    
-    // Detectar cuando el jugador sube a la plataforma
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (movePlayerWithPlatform && IsPlayer(collision.gameObject) && IsPlayerOnTop(collision))
-        {
-            playerOnPlatform = collision.transform;
-        }
-    }
-    
-    // Detectar cuando el jugador deja la plataforma
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.transform == playerOnPlatform)
-        {
-            playerOnPlatform = null;
-        }
-    }
-    
-    private bool IsPlayer(GameObject obj)
-    {
-        return ((1 << obj.layer) & playerLayer) != 0;
-    }
-    
-    private bool IsPlayerOnTop(Collision collision)
-    {
-        foreach (ContactPoint contact in collision.contacts)
-        {
-            if (contact.normal.y < 0.5f)
-                return false;
-        }
-        return true;
+        
+        // Dibujar área de detección del jugador
+        Gizmos.color = hasPlayerOnTop ? Color.green : Color.yellow;
+        Vector3 checkPosition = transform.position + detectionOffset;
+        Gizmos.DrawWireCube(checkPosition, detectionSize);
     }
 }
