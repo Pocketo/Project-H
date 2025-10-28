@@ -7,12 +7,13 @@ public class EnemyHealth : MonoBehaviour
     
     private int maxHealth;
     private Animator ani;
+    private EnemyAI enemy;
     
     void Start()
     {
         maxHealth = health;
         ani = GetComponent<Animator>();
-        
+        enemy = GetComponent<EnemyAI>();
     }
 
     public void TakeDamage(int damage)
@@ -26,6 +27,8 @@ public class EnemyHealth : MonoBehaviour
             ani.SetTrigger("Death");
             Destroy(gameObject, 3.0f);
             
+            enemy.enabled = false;
+
         }
     }
 
