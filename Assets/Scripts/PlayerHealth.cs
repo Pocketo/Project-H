@@ -7,13 +7,14 @@ public class PlayerHealth : MonoBehaviour
 {
     [Header("Vidas")]
     public int totalLives = 3;
-    public float currentLives;
+    public int currentLives;
     [Header("Salud")]
     public int maxHealthPerLife=100;
     public int currentHealth;
     [Header("Invulnerabilidad")]
     public float invulnerabilityTime = 2f;
     private bool invulnerable=false;
+    [SerializeField] InventoryUIController inventoryUIController;
 
     private void Awake()
     {
@@ -39,17 +40,22 @@ public class PlayerHealth : MonoBehaviour
 
     private void LoseLife()
     {
-        currentLives--;
-        Debug.Log("Vidas restantes: " + currentLives);
-        if (currentLives <= 0)
+        if (currentLives > 0)
         {
-            Die();
+            currentLives--;
+            inventoryUIController.RestaCorazones(currentLives);
+            Debug.Log("Vidas restantes: " + currentLives);
+            if (currentLives <= 0)
+            {
+                Die();
+            }
+            else
+            {
+                currentHealth = maxHealthPerLife;
+                StartCoroutine(BecomeTemporarilyInvulnerable());
+            }
         }
-        else
-        {
-            currentHealth = maxHealthPerLife;
-            StartCoroutine(BecomeTemporarilyInvulnerable());
-        }
+        
     }
 
     public void Heal(float amount)
@@ -60,6 +66,10 @@ public class PlayerHealth : MonoBehaviour
             currentHealth -= maxHealthPerLife;
             currentLives++;
             Debug.Log("Vida extra, vida total: " + currentHealth);
+            if (inventoryUIController != null)
+            {
+                inventoryUIController.RecuperaCorazones(currentLives-1);
+            }
         }
         currentHealth= Mathf.Clamp(currentHealth, 0, maxHealthPerLife);
         
@@ -76,6 +86,6 @@ public class PlayerHealth : MonoBehaviour
     {
         Debug.Log("Player murio");
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        Destroy(gameObject);
+        Destroy(this.gameObject);
     }
 }
