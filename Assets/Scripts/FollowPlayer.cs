@@ -13,7 +13,7 @@ public class EnemyAI : MonoBehaviour
 
     [Header("Stats")]
     public float maxHealth = 100f;
-    public float health;
+    private float health;
 
     //Congelación
     private bool isFrozen = false;
@@ -41,6 +41,9 @@ public class EnemyAI : MonoBehaviour
     
     //Animaciones
     private Animator ani;
+    
+    //
+    private PlayerWeapon weapom;
 
     private void Start()
     {
@@ -49,6 +52,7 @@ public class EnemyAI : MonoBehaviour
 
     private void Awake()
     {
+        
         ani = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         GameObject playerObject = GameObject.FindWithTag("Player");
@@ -138,7 +142,8 @@ public class EnemyAI : MonoBehaviour
 
             if (playerInMeleeRange)
             {
-                DoMeleeDamage();
+                ani.SetTrigger("Attack");
+                ani.SetBool("Walking", false);
             }
 
             alreadyAttacked = true;
@@ -146,14 +151,14 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    private void DoMeleeDamage()
+    public void DoMeleeDamage()
     {
         Collider[] hits = Physics.OverlapSphere(transform.position, meleeRange, whatIsPlayer);
         foreach (Collider hitCollider in hits)
         {
             if (hitCollider.TryGetComponent<PlayerHealth>(out PlayerHealth playerHealthComponent))
             {
-                ani.SetTrigger("Attack");
+               
                 playerHealthComponent.TakeDamage(meleeDamage);
                 Debug.Log($"Enemigo hizo {meleeDamage} de daño");
                 return;
@@ -167,10 +172,10 @@ public class EnemyAI : MonoBehaviour
 
     // --- Vida y Congelación ---
     public void TakeDamage(int damageAmount)
-    {
+    { 
         if (isFrozen) return; // mientras está congelado no recibe daño
         health -= damageAmount;
-        ani.SetTrigger("Hit");
+      
         Debug.Log($"{gameObject.name} recibió {damageAmount} de daño. Vida: {health}");
     }
 
@@ -194,7 +199,7 @@ public class EnemyAI : MonoBehaviour
 
     private void Die()
     {
-        ani.SetTrigger("Death");
+     
         Debug.Log($"{gameObject.name} ha muerto.");
         Destroy(gameObject,5.0f);
         agent.enabled = false;
