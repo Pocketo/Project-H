@@ -187,8 +187,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4906813123755195468}
-  - component: {fileID: -8108295636557413573}
   - component: {fileID: 3005018023041296860}
+  - component: {fileID: 8568932939348585431}
   m_Layer: 0
   m_Name: Martillo (1)
   m_TagString: Untagged
@@ -205,8 +205,8 @@ Transform:
   m_GameObject: {fileID: 5716000474022766326}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.57, y: 2.6843, z: 1.8}
-  m_LocalScale: {x: 0.20582063, y: 0.20582063, z: 0.20582063}
+  m_LocalPosition: {x: 28.481459, y: 1.97, z: 14.420267}
+  m_LocalScale: {x: 0.32515544, y: 0.32515544, z: 0.32515544}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8100047306157074217}
@@ -214,19 +214,6 @@ Transform:
   - {fileID: 2281227686491537814}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-8108295636557413573
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5716000474022766326}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e10630ec0ccbff04cac4bdc9b10d71aa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
-  weaponData: {fileID: 11400000, guid: 6925ddfeb8ae6fb46be7acc3c08de1fc, type: 2}
 --- !u!65 &3005018023041296860
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -248,6 +235,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8568932939348585431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5716000474022766326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4edcfd206bafe8445b85fa57d0d11169, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
+  itemData: {fileID: 0}
+  weaponData: {fileID: 11400000, guid: 6925ddfeb8ae6fb46be7acc3c08de1fc, type: 2}
 --- !u!1 &8154631813538600359
 GameObject:
   m_ObjectHideFlags: 0

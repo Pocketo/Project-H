@@ -15,9 +15,15 @@ public class PlayerHealth : MonoBehaviour
     public float invulnerabilityTime = 2f;
     private bool invulnerable=false;
     [SerializeField] InventoryUIController inventoryUIController;
+    [SerializeField] GameObject UIDeath;
 
     private void Awake()
     {
+        Time.timeScale = 1f;
+        if (UIDeath == null)
+        {
+            UIDeath.SetActive(false);
+        }
         currentLives = totalLives;
         currentHealth = maxHealthPerLife;
         Debug.Log("Tiene: "+currentLives+" vidas");
@@ -85,7 +91,19 @@ public class PlayerHealth : MonoBehaviour
     private void Die()
     {
         Debug.Log("Player murio");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        Destroy(this.gameObject);
+        UIDeath.SetActive(true);
+        Time.timeScale = 0;
+      
     }
+
+    public void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void Exit()
+    {
+        Application.Quit();
+    }
+    
 }

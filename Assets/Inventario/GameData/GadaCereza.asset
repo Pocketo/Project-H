@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fd4f5aca89414048a0ed697adb48bc8, type: 3}
   m_Name: GadaCereza
   m_EditorClassIdentifier: Assembly-CSharp::WeaponStats
-  weaponPrefab: {fileID: 0}
+  weaponPrefab: {fileID: 2369737148780680727, guid: 8f9252ce71c9f4642811f1fa23b484d4, type: 3}
   weaponName: Nueva arma
   type: 0
-  damage: 10
+  damage: 25
   attackSpeed: 1
-  freeze: 0
-  visualScale: {x: 1, y: 1, z: 1}
-  weaponIcon: {fileID: 0}
+  freeze: 1
+  visualScale: {x: 0.2478, y: 0.2478, z: 0.2478}
+  weaponIcon: {fileID: 21300000, guid: baf3d83c061ea6948abcfa48e7a3a2c4, type: 3}
