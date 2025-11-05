@@ -7,6 +7,7 @@ public class ItemPickup : MonoBehaviour
     public WeaponData weaponData;
 
     private InventoryManager playerInventory;
+    private Animator animator;
 
     private bool playerIsInRange = false;
     
@@ -17,6 +18,7 @@ public class ItemPickup : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerInventory= other.GetComponent<InventoryManager>();
+            
             if (playerInventory != null)
             {
                 playerIsInRange = true;
@@ -43,7 +45,7 @@ public class ItemPickup : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        animator = FindObjectOfType<Animator>();
     }
 
     // Update is called once per frame
@@ -52,6 +54,7 @@ public class ItemPickup : MonoBehaviour
         if (playerIsInRange && Input.GetKeyDown(KeyCode.E))
         {
             PickupItem();
+            animator.SetTrigger("Take");
         }
     }
 

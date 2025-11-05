@@ -6,19 +6,22 @@ using System.Collections;
 public class PlayerHealth : MonoBehaviour
 {
     [Header("Vidas")]
-    public int totalLives = 3;
-    public int currentLives;
-    [Header("Salud")]
-    public int maxHealthPerLife=100;
-    public int currentHealth;
+    [SerializeField] private int totalLives = 3;
+    private int currentLives;
+    private bool isDead = false;
+    [SerializeField] private float deathAnimationDuration = 3f;
+    [SerializeField] private int maxHealthPerLife=100;
+    private int currentHealth;
     [Header("Invulnerabilidad")]
-    public float invulnerabilityTime = 2f;
+    [SerializeField] private float invulnerabilityTime = 2f;
     private bool invulnerable=false;
     [SerializeField] InventoryUIController inventoryUIController;
     [SerializeField] GameObject UIDeath;
+    private Animator ani;
 
     private void Awake()
     {
+        ani = GetComponent<Animator>();
         Time.timeScale = 1f;
         if (UIDeath == null)
         {
@@ -49,6 +52,7 @@ public class PlayerHealth : MonoBehaviour
         if (currentLives > 0)
         {
             currentLives--;
+            ani.SetTrigger("Hit");
             inventoryUIController.RestaCorazones(currentLives);
             Debug.Log("Vidas restantes: " + currentLives);
             if (currentLives <= 0)
@@ -88,12 +92,31 @@ public class PlayerHealth : MonoBehaviour
         invulnerable = false;
     }
 
-    private void Die()
+    public void Die()
     {
-        Debug.Log("Player murio");
-        UIDeath.SetActive(true);
+        if (isDead) return;
+        
+        isDead = true;
+        
+        // Desactivar controles
+        GetComponent<PlayerController>().enabled = false;
+        
+        // Animación
+        if (ani != null)
+            ani.SetTrigger("Death");
+        
+        // Mostrar UI después
+        StartCoroutine(ShowDeathUIAfterDelay());
+    }
+    
+    private IEnumerator ShowDeathUIAfterDelay()
+    {
+        yield return new WaitForSeconds(deathAnimationDuration);
+        
+        if (UIDeath != null)
+            UIDeath.SetActive(true);
+        
         Time.timeScale = 0;
-      
     }
 
     public void Restart()
