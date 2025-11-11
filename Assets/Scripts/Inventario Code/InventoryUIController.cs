@@ -6,6 +6,8 @@ using TMPro;
 using WeaponData=WeaponStats;
 public class InventoryUIController : MonoBehaviour
 {
+    public bool pausa=false;
+    public GameObject pausaPanel;
     [Header("Dependencias")]
     public InventoryManager inventoryManager;
 
@@ -25,6 +27,8 @@ public class InventoryUIController : MonoBehaviour
         BuildConsumableSlots();
         UpdateConsumableUI();
         BuildWeaponSlots();
+        Continuar();
+
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -168,6 +172,34 @@ public class InventoryUIController : MonoBehaviour
            }
         }
     }
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (pausa)
+            {
+                Continuar();
+            }
+            else
+            {
+                PausarJuego();
+            }
+        }
+    }
+
+    public void PausarJuego()
+    {
+        pausa = true;
+        pausaPanel.SetActive(true);
+        Time.timeScale = 0f;
+    }
+
+    public void Continuar()
+    {
+        pausa = false;
+        pausaPanel.SetActive(false);
+        Time.timeScale = 1f;
+    }
 
     public void RestaCorazones(int indice)
     {
@@ -188,9 +220,4 @@ public class InventoryUIController : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

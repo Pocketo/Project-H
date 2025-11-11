@@ -259,6 +259,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1454404018165632828, guid: e14c026810c446f4abd691684d32e39c, type: 3}
+      propertyPath: m_Name
+      value: FresaSanadora (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2171841767729732026, guid: e14c026810c446f4abd691684d32e39c, type: 3}
+      propertyPath: itemData
+      value: 
+      objectReference: {fileID: 11400000, guid: 635818376b08826419c94336297832db, type: 2}
     - target: {fileID: 2262148499604346246, guid: e14c026810c446f4abd691684d32e39c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 40.26
@@ -299,18 +307,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1454404018165632828, guid: e14c026810c446f4abd691684d32e39c, type: 3}
-      propertyPath: m_Name
-      value: FresaSanadora (4)
-      objectReference: {fileID: 0}
     - target: {fileID: 2379631333220736498, guid: e14c026810c446f4abd691684d32e39c, type: 3}
       propertyPath: m_Radius
       value: 1.35
       objectReference: {fileID: 0}
-    - target: {fileID: 2171841767729732026, guid: e14c026810c446f4abd691684d32e39c, type: 3}
-      propertyPath: itemData
-      value: 
-      objectReference: {fileID: 11400000, guid: 635818376b08826419c94336297832db, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2154,6 +2154,11 @@ Mesh:
       - serializedVersion: 1
         m_IndexStart: 0
         m_IndexCount: 0
+--- !u!1 &1100485690 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8562993537271982753, guid: 71353693a2016c54bbc3bce676d63ad4, type: 3}
+  m_PrefabInstance: {fileID: 4212861254377728531}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1188886279
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2733,17 +2738,6 @@ Mesh:
       - serializedVersion: 1
         m_IndexStart: 0
         m_IndexCount: 0
---- !u!114 &1615591544 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1290803687808434280, guid: 71353693a2016c54bbc3bce676d63ad4, type: 3}
-  m_PrefabInstance: {fileID: 4212861254377728531}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b84b8d27637ebe3468ae86df3832e592, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InventoryUIController
 --- !u!1 &1626285015
 GameObject:
   m_ObjectHideFlags: 0
@@ -3673,15 +3667,15 @@ PrefabInstance:
     - target: {fileID: 3618333352141321218, guid: a9c83559b147b3744a872057a370d5eb, type: 3}
       propertyPath: uiController
       value: 
-      objectReference: {fileID: 1615591544}
+      objectReference: {fileID: 0}
     - target: {fileID: 8872095259263942416, guid: a9c83559b147b3744a872057a370d5eb, type: 3}
       propertyPath: UIDeath
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1100485690}
     - target: {fileID: 8872095259263942416, guid: a9c83559b147b3744a872057a370d5eb, type: 3}
       propertyPath: inventoryUIController
       value: 
-      objectReference: {fileID: 1615591544}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3756,6 +3750,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1454404018165632828, guid: e14c026810c446f4abd691684d32e39c, type: 3}
+      propertyPath: m_Name
+      value: FresaSanadora (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2171841767729732026, guid: e14c026810c446f4abd691684d32e39c, type: 3}
+      propertyPath: itemData
+      value: 
+      objectReference: {fileID: 11400000, guid: 635818376b08826419c94336297832db, type: 2}
     - target: {fileID: 2262148499604346246, guid: e14c026810c446f4abd691684d32e39c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 38.76
@@ -3796,18 +3798,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1454404018165632828, guid: e14c026810c446f4abd691684d32e39c, type: 3}
-      propertyPath: m_Name
-      value: FresaSanadora (3)
-      objectReference: {fileID: 0}
     - target: {fileID: 2379631333220736498, guid: e14c026810c446f4abd691684d32e39c, type: 3}
       propertyPath: m_Radius
       value: 1.35
       objectReference: {fileID: 0}
-    - target: {fileID: 2171841767729732026, guid: e14c026810c446f4abd691684d32e39c, type: 3}
-      propertyPath: itemData
-      value: 
-      objectReference: {fileID: 11400000, guid: 635818376b08826419c94336297832db, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
