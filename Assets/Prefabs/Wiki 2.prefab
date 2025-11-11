@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -9165797768001435688, guid: 6f50559cfdab8564a814e763ef0dad29, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: aa0431bb3e2606046976823202e0b52b, type: 2}
     - target: {fileID: -8679921383154817045, guid: 6f50559cfdab8564a814e763ef0dad29, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.55452
@@ -60,6 +64,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -1526964690268444965, guid: 6f50559cfdab8564a814e763ef0dad29, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: aa0431bb3e2606046976823202e0b52b, type: 2}
     - target: {fileID: 919132149155446097, guid: 6f50559cfdab8564a814e763ef0dad29, type: 3}
       propertyPath: m_Name
       value: Wiki 2
@@ -68,6 +76,18 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Death
       objectReference: {fileID: 0}
+    - target: {fileID: 7603786706384944740, guid: 6f50559cfdab8564a814e763ef0dad29, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: aa0431bb3e2606046976823202e0b52b, type: 2}
+    - target: {fileID: 7926839288223873370, guid: 6f50559cfdab8564a814e763ef0dad29, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: c8c5481509d61d64aba0d79ca6e0894c, type: 2}
+    - target: {fileID: 8417361359673230750, guid: 6f50559cfdab8564a814e763ef0dad29, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: d388e61b102e01445890155064647ae1, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -162,16 +182,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAI
   agent: {fileID: 0}
-  projectilePrefab: {fileID: 0}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 8
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 64
+  maxHealth: 100
   walkPointRange: 10
   timeBetweenAttacks: 2
-  useRange: 1
   useMelee: 1
   meleeDamage: 10
   meleeRange: 2
