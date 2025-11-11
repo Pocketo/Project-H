@@ -53,7 +53,7 @@ public class SettingsManager : MonoBehaviour
 
     public void Cerrar()
     {
-        UnityEditor.EditorApplication.isPlaying = false;
+       // UnityEditor.EditorApplication.isPlaying = false;
         Application.Quit();
     }
 
