@@ -24,10 +24,7 @@ public class ItemPickup : MonoBehaviour
                 playerIsInRange = true;
                 string itemName = GetItemName();
                 Debug.Log($"Presiona 'E' para agarrar {itemName}");
-                
             }
-
-            
         }
     }
 

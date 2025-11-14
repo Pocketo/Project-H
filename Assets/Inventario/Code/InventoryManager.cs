@@ -13,7 +13,7 @@ public class InventoryManager : MonoBehaviour
     [Header("UI")]
     public InventoryUIController uiController;
 
-    [Header("Arma")] public
+    [Header("Arma")] public 
         Transform weaponRespawn;
 
     private GameObject currentweaponInstance;
@@ -52,17 +52,14 @@ public class InventoryManager : MonoBehaviour
         }
         
     }
-
     /// <summary>
     /// Devuelve el arma que el jugador tiene equipada
     /// </summary>
     /// <returns>El WeaponD.Weapon o null</returns>
-
     public WeaponData GetEquippedWeapon()
     {
         return equippedWeapon;
     }
-
     public void EquipWeapon(WeaponData newWeapon)
     {
         if (newWeapon == null) return;
@@ -70,7 +67,6 @@ public class InventoryManager : MonoBehaviour
         {
             weaponInventory.Add(newWeapon);
         }
-        
         if (newWeapon == equippedWeapon) return;
         equippedWeaponIndex = weaponInventory.IndexOf(newWeapon);
         equippedWeapon = newWeapon;
@@ -83,7 +79,6 @@ public class InventoryManager : MonoBehaviour
             uiController.UpdateEquippedVisuals();
         }
     }
-
     public void EquipWeapon(int index)
     {
         if (index < 0 || index >= weaponInventory.Count)
@@ -91,11 +86,9 @@ public class InventoryManager : MonoBehaviour
             Debug.LogWarning("InventoryManager: No asigno arma");
             return;
         }
-
         WeaponData newWeapon = weaponInventory[index];
         EquipWeapon(newWeapon);
     }
-
     public void UnequipWeapon()
     {
         if(equippedWeapon==null) return;
@@ -108,7 +101,6 @@ public class InventoryManager : MonoBehaviour
             uiController.UpdateEquippedVisuals();
         }
     }
-
     public void AddWeapon(WeaponData weaponToAdd)
     {
         bool wasAdded=false;
@@ -123,7 +115,6 @@ public class InventoryManager : MonoBehaviour
             }
             
         }
-
         if (!weaponInventory.Contains(weaponToAdd))
         {
             weaponInventory.Add(weaponToAdd);
@@ -139,7 +130,6 @@ public class InventoryManager : MonoBehaviour
             EquipWeapon(weaponInventory.Count -1);
         }
     }
-
     public void AddConsumable(ConsumableData itemToAdd)
     {
         if (itemToAdd == null)
@@ -170,12 +160,10 @@ public class InventoryManager : MonoBehaviour
             Destroy(currentweaponInstance);
             currentweaponInstance = null;
         }
-
         if (newWeapon == null || newWeapon.weaponPrefab == null || weaponRespawn == null)
         {
             return;
         }
-
         currentweaponInstance = Instantiate(
             newWeapon.weaponPrefab,
             weaponRespawn);
@@ -184,7 +172,6 @@ public class InventoryManager : MonoBehaviour
         currentweaponInstance.transform.localRotation = Quaternion.identity;
 
     }
-
     public void UseConsumable(ConsumableData item)
     {
         if (item == null||playerHealth==null||!consumableInventory.ContainsKey(item)||consumableInventory[item]<=0)
@@ -192,7 +179,6 @@ public class InventoryManager : MonoBehaviour
             Debug.LogWarning("InventoryManager: No se puede sanar");
             return;
         }
-        
         playerHealth.Heal(item.healthRestored);
         Debug.Log($"Usaste {item.itemName} curaste {item.healthRestored}");
         //animacion de curacion

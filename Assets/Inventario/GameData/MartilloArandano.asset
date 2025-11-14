@@ -13,10 +13,7 @@ MonoBehaviour:
   m_Name: MartilloArandano
   m_EditorClassIdentifier: Assembly-CSharp::WeaponStats
   weaponPrefab: {fileID: 5716000474022766326, guid: 0dca18ce226374a48a875b1409f8a8d5, type: 3}
-  weaponName: Nueva arma
-  type: 0
-  damage: 30
-  attackSpeed: 1
-  freeze: 0
-  visualScale: {x: 0.2058, y: 0.2058, z: 0.2058}
+  weaponName: Martillo
+  freeze: 1
+  visualScale: {x: 1, y: 1, z: 1}
   weaponIcon: {fileID: 21300000, guid: 6f8e9b9baa21a9841854981b1f0c29fe, type: 3}

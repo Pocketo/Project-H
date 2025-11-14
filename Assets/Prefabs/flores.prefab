@@ -1,0 +1,159 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7171334271115455707
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7552081560524797537}
+  m_Layer: 0
+  m_Name: flores
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7552081560524797537
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7171334271115455707}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 63.86245, y: 2.66, z: 38.637203}
+  m_LocalScale: {x: 0.74544, y: 0.74544, z: 0.74544}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5993642032191284603}
+  - {fileID: 5348409195567155866}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &2025925655289205594
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7552081560524797537}
+    m_Modifications:
+    - target: {fileID: 6207320888533817792, guid: 6a7ffb340dc72ab42b4425632e691ee1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -21.162924
+      objectReference: {fileID: 0}
+    - target: {fileID: 6207320888533817792, guid: 6a7ffb340dc72ab42b4425632e691ee1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.2152898
+      objectReference: {fileID: 0}
+    - target: {fileID: 6207320888533817792, guid: 6a7ffb340dc72ab42b4425632e691ee1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.8580295
+      objectReference: {fileID: 0}
+    - target: {fileID: 6207320888533817792, guid: 6a7ffb340dc72ab42b4425632e691ee1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.652782
+      objectReference: {fileID: 0}
+    - target: {fileID: 6207320888533817792, guid: 6a7ffb340dc72ab42b4425632e691ee1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.6527822
+      objectReference: {fileID: 0}
+    - target: {fileID: 6207320888533817792, guid: 6a7ffb340dc72ab42b4425632e691ee1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.27180058
+      objectReference: {fileID: 0}
+    - target: {fileID: 6207320888533817792, guid: 6a7ffb340dc72ab42b4425632e691ee1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.27180046
+      objectReference: {fileID: 0}
+    - target: {fileID: 6207320888533817792, guid: 6a7ffb340dc72ab42b4425632e691ee1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 6207320888533817792, guid: 6a7ffb340dc72ab42b4425632e691ee1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6207320888533817792, guid: 6a7ffb340dc72ab42b4425632e691ee1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 45.211
+      objectReference: {fileID: 0}
+    - target: {fileID: 8803642404972196010, guid: 6a7ffb340dc72ab42b4425632e691ee1, type: 3}
+      propertyPath: m_Name
+      value: Tallo flores 4 hojas
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6a7ffb340dc72ab42b4425632e691ee1, type: 3}
+--- !u!4 &5348409195567155866 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6207320888533817792, guid: 6a7ffb340dc72ab42b4425632e691ee1, type: 3}
+  m_PrefabInstance: {fileID: 2025925655289205594}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7695480439341007035
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7552081560524797537}
+    m_Modifications:
+    - target: {fileID: 4097281450937820870, guid: 121ad1eb6ff47d64bbbeb4f472d31842, type: 3}
+      propertyPath: m_Name
+      value: Hojas flores 1.001
+      objectReference: {fileID: 0}
+    - target: {fileID: 4172135370701399488, guid: 121ad1eb6ff47d64bbbeb4f472d31842, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -23.431557
+      objectReference: {fileID: 0}
+    - target: {fileID: 4172135370701399488, guid: 121ad1eb6ff47d64bbbeb4f472d31842, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.9757164
+      objectReference: {fileID: 0}
+    - target: {fileID: 4172135370701399488, guid: 121ad1eb6ff47d64bbbeb4f472d31842, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.027441
+      objectReference: {fileID: 0}
+    - target: {fileID: 4172135370701399488, guid: 121ad1eb6ff47d64bbbeb4f472d31842, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.58439183
+      objectReference: {fileID: 0}
+    - target: {fileID: 4172135370701399488, guid: 121ad1eb6ff47d64bbbeb4f472d31842, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.60741544
+      objectReference: {fileID: 0}
+    - target: {fileID: 4172135370701399488, guid: 121ad1eb6ff47d64bbbeb4f472d31842, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.37481037
+      objectReference: {fileID: 0}
+    - target: {fileID: 4172135370701399488, guid: 121ad1eb6ff47d64bbbeb4f472d31842, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.38606977
+      objectReference: {fileID: 0}
+    - target: {fileID: 4172135370701399488, guid: 121ad1eb6ff47d64bbbeb4f472d31842, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4172135370701399488, guid: 121ad1eb6ff47d64bbbeb4f472d31842, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4172135370701399488, guid: 121ad1eb6ff47d64bbbeb4f472d31842, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 121ad1eb6ff47d64bbbeb4f472d31842, type: 3}
+--- !u!4 &5993642032191284603 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4172135370701399488, guid: 121ad1eb6ff47d64bbbeb4f472d31842, type: 3}
+  m_PrefabInstance: {fileID: 7695480439341007035}
+  m_PrefabAsset: {fileID: 0}

@@ -18,6 +18,7 @@ public class EnemyAI : MonoBehaviour
     //Congelación
     private bool isFrozen = false;
     private float freezeTimer = 0f;
+    private WeaponStats ws;
 
     //Patrullaje
     [Header("Patrullaje")]
@@ -181,7 +182,7 @@ public class EnemyAI : MonoBehaviour
 
     public void FreezeEnemy(float duration = 2f)
     {
-        if (!isFrozen)
+        if (ws.freeze == true&&!isFrozen)
         {
             isFrozen = true;
             freezeTimer = duration;

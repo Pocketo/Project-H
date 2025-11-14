@@ -14,9 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponStats
   weaponPrefab: {fileID: 5935780951788387379, guid: 1416b634b9f51484985f8b22e136e1e7, type: 3}
   weaponName: Nueva arma
-  type: 1
-  damage: 10
-  attackSpeed: 1
   freeze: 0
-  visualScale: {x: 0.17976, y: 0.17976, z: 0.17976}
+  visualScale: {x: 1, y: 1, z: 1}
   weaponIcon: {fileID: 21300000, guid: 94f55b3fa6f916c4d8d1ff52a2737782, type: 3}

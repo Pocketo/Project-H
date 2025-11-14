@@ -45,6 +45,7 @@ public class PlayerController : MonoBehaviour
     private bool attackBuffered = false; // Input guardado
     private float attackBufferTimer = 0f; // Temporizador del buffer
 
+    
     private Animator animator;
     
     private Vector3 dashDirection;
