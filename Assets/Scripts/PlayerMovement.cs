@@ -58,6 +58,14 @@ public class PlayerController : MonoBehaviour
     private Vector2 moveInput;
     
     private Vector3 externalForce = Vector3.zero;
+    
+    //sonidos
+    private AudioSource audioSource;
+    [Header("Audio")]
+    [SerializeField] private AudioClip steps;
+    [SerializeField] private AudioClip jump;
+    [SerializeField] private AudioClip dash;
+    [SerializeField] private AudioClip landingSound;
 
 
     void Start()
@@ -66,8 +74,16 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         jumpsRemaining = maxJumps;
         coyoteTimeCounter = 0f;
+        audioSource = GetComponent<AudioSource>();
     }
-    
+    public void PlayFootstep()
+    {
+        if (isGrounded && !isDashing && !isAttacking)
+        {
+            audioSource.PlayOneShot(steps);
+        }
+    }
+
     public void ApplyExternalForce(Vector3 force)
     {
         externalForce = force;
@@ -105,6 +121,8 @@ public class PlayerController : MonoBehaviour
             }
             
             animator.SetTrigger("Jump");
+            // 🔊 sonido de salto
+            audioSource.PlayOneShot(jump);
             isFalling = false;
         }
     }
@@ -130,6 +148,8 @@ public class PlayerController : MonoBehaviour
             cooldownTimer = dashCooldown;
             
             animator.SetTrigger("Dash");
+            // 🔊 sonido de dash
+            audioSource.PlayOneShot(dash);
         }
     }
     
@@ -219,6 +239,10 @@ public class PlayerController : MonoBehaviour
     {
         wasGrounded = isGrounded;
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        if (isGrounded && wasGrounded == false)
+        {
+            audioSource.PlayOneShot(landingSound);
+        }
         
         // Lógica de Coyote Time
         if (isGrounded)

@@ -103,6 +103,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
   itemData: {fileID: 0}
   weaponData: {fileID: 11400000, guid: 42a5598c2bb308f4880888bc90fadb1b, type: 2}
+  messageUI: {fileID: 0}
+  messageText: Presiona E para recoger
+  uiText: {fileID: 0}
+  pickupSound: {fileID: 0}
 --- !u!65 &6867302456117202479
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -138,6 +142,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerWeapon
   damage: 25
   frozen: 0
+  sound: {fileID: 8300000, guid: 39263e855c2f0c84a935d2fa46b98d90, type: 3}
 --- !u!54 &4546563158608229872
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using WeaponData=WeaponStats;
 public class ItemPickup : MonoBehaviour
 {
@@ -12,6 +13,15 @@ public class ItemPickup : MonoBehaviour
     private bool playerIsInRange = false;
     
     //deteccion de proximidad
+    [Header("UI")]
+    [SerializeField] private GameObject messageUI;
+    [SerializeField] private string messageText = "Presiona E para recoger";  
+    [SerializeField] private Text uiText;
+    private bool playerInside = false;
+    [Header("Audio (Opcional)")]
+    [SerializeField] private AudioClip pickupSound;
+    private AudioSource audioSource;
+
 
     private void OnTriggerEnter(Collider other)
     {
@@ -25,6 +35,14 @@ public class ItemPickup : MonoBehaviour
                 string itemName = GetItemName();
                 Debug.Log($"Presiona 'E' para agarrar {itemName}");
             }
+            
+            playerInside = true;
+
+            if (uiText != null)
+                uiText.text = messageText;
+
+            if (messageUI != null)
+                messageUI.SetActive(true);
         }
     }
 
@@ -37,12 +55,23 @@ public class ItemPickup : MonoBehaviour
                 playerIsInRange = false;
                 playerInventory = null;
             }
+            playerInside = false;
+
+            if (messageUI != null)
+                messageUI.SetActive(false);
         }
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        if (messageUI != null)
+            messageUI.SetActive(false);
         animator = FindObjectOfType<Animator>();
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null && pickupSound != null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
     }
 
     // Update is called once per frame
@@ -83,6 +112,15 @@ public class ItemPickup : MonoBehaviour
             Destroy(gameObject);
 
         }   
+        // Ocultar UI
+        if (messageUI != null)
+            messageUI.SetActive(false);
+        
+        // Reproducir sonido
+        if (pickupSound != null && audioSource != null)
+        {
+            AudioSource.PlayClipAtPoint(pickupSound, transform.position);
+        }
     }
 
     private string GetItemName()

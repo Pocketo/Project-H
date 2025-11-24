@@ -1,9 +1,20 @@
+using System;
 using UnityEngine;
 
 public class PlayerWeapon : MonoBehaviour
 {
     [SerializeField] private int damage = 10;
     [SerializeField] private bool frozen = false;
+    [SerializeField] AudioClip sound;
+    private AudioSource audioSource;
+
+    private void Start()
+    {
+        if (audioSource == null && sound != null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -14,6 +25,11 @@ public class PlayerWeapon : MonoBehaviour
             {
                 enemyHealth.TakeDamage(damage);
                 Debug.Log("Vida restante: " + enemyHealth.GetCurrentHealth());
+                // Reproducir sonido
+                if (sound != null && audioSource != null)
+                {
+                    AudioSource.PlayClipAtPoint(sound, transform.position);
+                }
             }
         }
         else if (other.CompareTag("Death")&&frozen==true)

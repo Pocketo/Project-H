@@ -4300,18 +4300,6 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 615334611937933372, guid: 71353693a2016c54bbc3bce676d63ad4, type: 3}
       propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2392973302477428141, guid: 71353693a2016c54bbc3bce676d63ad4, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: b40edcc381eed7c4aa1f822b9cb970bd, type: 2}
-    - target: {fileID: 2392973302477428141, guid: 71353693a2016c54bbc3bce676d63ad4, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: -3528248596442357289, guid: b40edcc381eed7c4aa1f822b9cb970bd, type: 2}
-    - target: {fileID: 2392973302477428141, guid: 71353693a2016c54bbc3bce676d63ad4, type: 3}
-      propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2922339292740659456, guid: 71353693a2016c54bbc3bce676d63ad4, type: 3}
@@ -4322,18 +4310,6 @@ PrefabInstance:
       propertyPath: Inventario
       value: 
       objectReference: {fileID: 5082645922500339241}
-    - target: {fileID: 3179347826769665249, guid: 71353693a2016c54bbc3bce676d63ad4, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: b40edcc381eed7c4aa1f822b9cb970bd, type: 2}
-    - target: {fileID: 3179347826769665249, guid: 71353693a2016c54bbc3bce676d63ad4, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: -3528248596442357289, guid: b40edcc381eed7c4aa1f822b9cb970bd, type: 2}
-    - target: {fileID: 3179347826769665249, guid: 71353693a2016c54bbc3bce676d63ad4, type: 3}
-      propertyPath: m_hasFontAssetChanged
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3827370974799296035, guid: 71353693a2016c54bbc3bce676d63ad4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 14.75801
@@ -4402,37 +4378,9 @@ PrefabInstance:
       propertyPath: 'listaCorazones.Array.data[2]'
       value: 
       objectReference: {fileID: 5050020063939949897}
-    - target: {fileID: 5594626296689848352, guid: 71353693a2016c54bbc3bce676d63ad4, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: b40edcc381eed7c4aa1f822b9cb970bd, type: 2}
-    - target: {fileID: 5594626296689848352, guid: 71353693a2016c54bbc3bce676d63ad4, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: -3528248596442357289, guid: b40edcc381eed7c4aa1f822b9cb970bd, type: 2}
-    - target: {fileID: 5594626296689848352, guid: 71353693a2016c54bbc3bce676d63ad4, type: 3}
-      propertyPath: m_hasFontAssetChanged
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6048725893527338335, guid: 71353693a2016c54bbc3bce676d63ad4, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: b40edcc381eed7c4aa1f822b9cb970bd, type: 2}
-    - target: {fileID: 6048725893527338335, guid: 71353693a2016c54bbc3bce676d63ad4, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: -3528248596442357289, guid: b40edcc381eed7c4aa1f822b9cb970bd, type: 2}
-    - target: {fileID: 6048725893527338335, guid: 71353693a2016c54bbc3bce676d63ad4, type: 3}
-      propertyPath: m_hasFontAssetChanged
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6232142311790630506, guid: 71353693a2016c54bbc3bce676d63ad4, type: 3}
       propertyPath: m_Name
       value: Managers
-      objectReference: {fileID: 0}
-    - target: {fileID: 6418496468922715475, guid: 71353693a2016c54bbc3bce676d63ad4, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -226
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4769,14 +4717,6 @@ PrefabInstance:
       propertyPath: UIDeath
       value: 
       objectReference: {fileID: 5913031585951629236}
-    - target: {fileID: 8520355226078400338, guid: 74371af280707aa43805a8bded56c164, type: 3}
-      propertyPath: hitSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 3c9f2a17703442f419ca18bcc86f0c24, type: 3}
-    - target: {fileID: 8520355226078400338, guid: 74371af280707aa43805a8bded56c164, type: 3}
-      propertyPath: deathSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 87011802a0e3c3048a265012b9f40a47, type: 3}
     - target: {fileID: 8520355226078400338, guid: 74371af280707aa43805a8bded56c164, type: 3}
       propertyPath: inventoryUIController
       value: 

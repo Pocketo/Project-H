@@ -18,9 +18,14 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] InventoryUIController inventoryUIController;
     [SerializeField] GameObject UIDeath;
     private Animator ani;
+    private AudioSource audioSource;
+    [Header("Audio")]
+    [SerializeField] private AudioClip deathSound;
+    [SerializeField] private AudioClip hitSound;
 
     private void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
         ani = GetComponent<Animator>();
         Time.timeScale = 1f;
         if (UIDeath == null)
@@ -53,6 +58,7 @@ public class PlayerHealth : MonoBehaviour
         {
             currentLives--;
             ani.SetTrigger("Hit");
+            audioSource.PlayOneShot(hitSound);
             inventoryUIController.RestaCorazones(currentLives);
             Debug.Log("Vidas restantes: " + currentLives);
             if (currentLives <= 0)
@@ -104,7 +110,7 @@ public class PlayerHealth : MonoBehaviour
         // Animación
         if (ani != null)
             ani.SetTrigger("Death");
-        
+        audioSource.PlayOneShot(deathSound);
         // Mostrar UI después
         StartCoroutine(ShowDeathUIAfterDelay());
     }
