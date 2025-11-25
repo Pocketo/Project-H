@@ -66,6 +66,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private AudioClip jump;
     [SerializeField] private AudioClip dash;
     [SerializeField] private AudioClip landingSound;
+    [SerializeField] private AudioClip slash1;
+    [SerializeField] private AudioClip slash2;
+    [SerializeField] private AudioClip slash3;
 
 
     void Start()
@@ -199,12 +202,15 @@ public class PlayerController : MonoBehaviour
         {
             case 1:
                 animator.SetTrigger("Attack1");
+                audioSource.PlayOneShot(slash1);
                 break;
             case 2:
                 animator.SetTrigger("Attack2");
+                audioSource.PlayOneShot(slash2);
                 break;
             case 3:
                 animator.SetTrigger("Attack3");
+                audioSource.PlayOneShot(slash3);
                 break;
         }
 

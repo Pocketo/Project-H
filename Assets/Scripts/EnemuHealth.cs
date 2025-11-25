@@ -9,9 +9,15 @@ public class EnemyHealth : MonoBehaviour
     private Animator ani;
     private EnemyAI enemy;
     private bool isDead = false; // Añadido para evitar múltiples llamadas
+    private AudioSource audioSource;
+    [SerializeField] AudioClip hit;
+    [SerializeField] AudioClip death;
+    [SerializeField] private GameObject deathParticles;
+
     
     void Start()
     {
+        audioSource=GetComponent<AudioSource>();
         maxHealth = health;
         ani = GetComponent<Animator>();
         enemy = GetComponent<EnemyAI>();
@@ -23,6 +29,7 @@ public class EnemyHealth : MonoBehaviour
         if (isDead) return;
         
         ani.SetTrigger("Hit");
+        audioSource.PlayOneShot(hit);
         health -= damage;
         
         // Asegurar que la vida no baje de 0
@@ -34,9 +41,14 @@ public class EnemyHealth : MonoBehaviour
         {
             isDead = true; // Marcar como muerto
             ani.SetTrigger("Death");
+            audioSource.PlayOneShot(death);
             enemy.enabled = false;
             Destroy(gameObject, 3.0f);
         }
+    }
+    public void SpawnDeathParticles()
+    {
+        Instantiate(deathParticles, transform.position, Quaternion.identity);
     }
 
     public int GetCurrentHealth()

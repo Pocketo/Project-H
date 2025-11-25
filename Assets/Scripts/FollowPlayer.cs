@@ -45,6 +45,11 @@ public class EnemyAI : MonoBehaviour
     
     //
     private PlayerWeapon weapom;
+    [Header("Audio")]
+    [SerializeField] AudioClip hit;
+    [SerializeField] AudioClip died;
+    
+    private AudioSource audioSource;
 
     private void Start()
     {
@@ -53,7 +58,7 @@ public class EnemyAI : MonoBehaviour
 
     private void Awake()
     {
-        
+        audioSource = GetComponent<AudioSource>();
         ani = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         GameObject playerObject = GameObject.FindWithTag("Player");
@@ -202,6 +207,7 @@ public class EnemyAI : MonoBehaviour
     {
      
         Debug.Log($"{gameObject.name} ha muerto.");
+        audioSource.PlayOneShot(died);
         Destroy(gameObject,5.0f);
         agent.enabled = false;
     }
